@@ -40,22 +40,22 @@ The **foc.fun Builder** is an upcoming visual development environment that will 
 
 ## Roadmap
 
-### Phase 1: Foundation (Current)
+### Phase 1: Foundation
 - Core architecture development
 - Basic contract templates
 - Simple deployment flow
 
-### Phase 2: Visual Designer (Q2 2024)
+### Phase 2: Visual Designer
 - Drag-and-drop interface
 - Component library
 - Real-time preview
 
-### Phase 3: Advanced Features (Q3 2024)
+### Phase 3: Advanced Features
 - AI-assisted development
 - Collaborative editing
 - Advanced analytics
 
-### Phase 4: Ecosystem Integration (Q4 2024)
+### Phase 4: Ecosystem Integration
 - Marketplace for components
 - Third-party integrations
 - Enterprise features
