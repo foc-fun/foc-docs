@@ -50,7 +50,7 @@ sudo dnf install jq yq
 
 2. **Add the foc-engine plugin**:
    ```bash
-   asdf plugin add foc-engine https://github.com/b-j-roberts/asdf-foc-engine.git
+   asdf plugin add foc-engine https://github.com/foc-fun/asdf-foc-engine.git
    ```
 
 3. **Install the latest version**:
@@ -74,7 +74,7 @@ If you prefer to build from source or need the latest development version:
 
 1. **Clone the repository**:
    ```bash
-   git clone git@github.com:b-j-roberts/foc-engine.git
+   git clone git@github.com:foc-fun/foc-engine.git
    cd foc-engine
    ```
 

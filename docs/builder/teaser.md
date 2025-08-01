@@ -50,8 +50,8 @@ We're looking for developers to help test and shape the Builder. Beta testers wi
 - Priority support
 
 ### Stay Updated
-- Watch the [foc-builder repository](https://github.com/b-j-roberts/foc-builder)
-- Follow our progress on social media
+- Watch the [foc-builder repository](https://github.com/foc-fun/foc-builder)
+- Follow our progress on [Twitter](https://x.com/focfun)
 - Join our Discord community (coming soon)
 
 ## Sneak Peek
@@ -111,7 +111,7 @@ const ui = await builder.generateUI(deployment, {
 ## Get Involved
 
 ### For Developers
-- Contribute to the [open-source development](https://github.com/b-j-roberts/foc-builder)
+- Contribute to the [open-source development](https://github.com/foc-fun/foc-builder)
 - Submit feature requests and bug reports
 - Share your contract templates
 
@@ -142,7 +142,8 @@ A: We're focused on Starknet first, with potential expansion based on community 
 ## Contact
 
 Have questions or want to contribute? Reach out:
-- GitHub: [foc-builder](https://github.com/b-j-roberts/foc-builder)
+- GitHub: [foc-builder](https://github.com/foc-fun/foc-builder)
+- Twitter: [@focfun](https://x.com/focfun)
 - Email: builder@foc.fun
 - Discord: Coming soon!
 

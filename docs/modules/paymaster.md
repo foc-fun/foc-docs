@@ -633,6 +633,31 @@ const paymaster = engine.getModule('paymaster', {
 });
 ```
 
+## Related Code & Resources
+
+### Source Code
+- **Paymaster Module Implementation**: [foc-engine/modules/paymaster](https://github.com/foc-fun/foc-engine/tree/main/modules/paymaster)
+- **JavaScript SDK Paymaster**: [foc-engine.js/src/modules/paymaster](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules/paymaster)
+- **Paymaster Core Logic**: [foc-engine/core/paymaster](https://github.com/foc-fun/foc-engine/tree/main/core/paymaster)
+
+### Smart Contracts
+- **Paymaster Contracts**: [foc-engine/contracts/paymaster](https://github.com/foc-fun/foc-engine/tree/main/contracts/paymaster)
+- **Universal Paymaster**: [foc-engine/contracts/paymaster/universal](https://github.com/foc-fun/foc-engine/tree/main/contracts/paymaster/universal)
+- **Policy Contracts**: [foc-engine/contracts/paymaster/policies](https://github.com/foc-fun/foc-engine/tree/main/contracts/paymaster/policies)
+
+### Examples
+- **Paymaster Usage Examples**: [foc-engine/examples/paymaster](https://github.com/foc-fun/foc-engine/tree/main/examples/paymaster)
+- **Gaming Paymaster Integration**: [foc-engine/examples/gaming-paymaster](https://github.com/foc-fun/foc-engine/tree/main/examples/gaming-paymaster)
+- **DeFi Paymaster Templates**: [foc-engine/examples/defi-paymaster](https://github.com/foc-fun/foc-engine/tree/main/examples/defi-paymaster)
+
+### Configuration
+- **Policy Templates**: [foc-engine/config/paymaster-policies](https://github.com/foc-fun/foc-engine/tree/main/config/paymaster-policies)
+- **Deployment Scripts**: [foc-engine/scripts/paymaster](https://github.com/foc-fun/foc-engine/tree/main/scripts/paymaster)
+
+### Tests
+- **Paymaster Module Tests**: [foc-engine/tests/modules/paymaster](https://github.com/foc-fun/foc-engine/tree/main/tests/modules/paymaster)
+- **Policy Engine Tests**: [foc-engine/tests/paymaster](https://github.com/foc-fun/foc-engine/tree/main/tests/paymaster)
+
 ## Next Steps
 
 - Explore [Events Module](./events) for transaction monitoring

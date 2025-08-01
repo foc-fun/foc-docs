@@ -22,7 +22,7 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'b-j-roberts', // Usually your GitHub org/user name.
+  organizationName: 'foc-fun', // Usually your GitHub org/user name.
   projectName: 'foc-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -45,7 +45,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/b-j-roberts/foc-docs/tree/main/',
+            'https://github.com/foc-fun/foc-docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -56,7 +56,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/b-j-roberts/foc-docs/tree/main/',
+            'https://github.com/foc-fun/foc-docs/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -81,7 +81,7 @@ const config: Config = {
       title: 'foc.fun',
       logo: {
         alt: 'foc.fun Logo',
-        src: 'img/logo.svg',
+        src: 'img/foc-logo.png',
       },
       items: [
         {
@@ -97,7 +97,12 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/b-j-roberts',
+          href: 'https://x.com/focfun',
+          label: 'Twitter',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/foc-fun',
           label: 'GitHub',
           position: 'right',
         },
@@ -145,7 +150,11 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/b-j-roberts',
+              href: 'https://github.com/foc-fun',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://x.com/focfun',
             },
           ],
         },

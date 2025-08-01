@@ -20,8 +20,13 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
+            to="/docs/getting-started/intro">
+            Get Started with foc.fun ✨
+          </Link>
+          <Link
+            className="button button--primary button--lg margin-left--md"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            View Documentation 📖
           </Link>
         </div>
       </div>
@@ -33,8 +38,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`Welcome to ${siteConfig.title}`}
+      description="The Starknet App Engine - Build decentralized applications with ease">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

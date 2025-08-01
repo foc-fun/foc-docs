@@ -9,11 +9,11 @@ This is the documentation site for foc.fun - a multi-repository project ecosyste
 ## Project Context
 
 foc.fun is a multi-repo project with the following components:
-- **foc-engine**: Core engine implementation - https://github.com/b-j-roberts/foc-engine
-- **asdf-foc-engine**: ASDF plugin for foc-engine version management - https://github.com/b-j-roberts/asdf-foc-engine  
-- **foc-engine.js**: JavaScript/TypeScript SDK - https://github.com/b-j-roberts/foc-engine.js
-- **foc-builder**: Builder tool (WIP) - https://github.com/b-j-roberts/foc-builder
-- **foc-fun**: Main project repository - https://github.com/b-j-roberts/foc-fun
+- **foc-engine**: Core engine implementation - https://github.com/foc-fun/foc-engine
+- **asdf-foc-engine**: ASDF plugin for foc-engine version management - https://github.com/foc-fun/asdf-foc-engine  
+- **foc-engine.js**: JavaScript/TypeScript SDK - https://github.com/foc-fun/foc-engine.js
+- **foc-builder**: Builder tool (WIP) - https://github.com/foc-fun/foc-builder
+- **foc-fun**: Main project repository - https://github.com/foc-fun/foc-fun
 
 ## Commands
 

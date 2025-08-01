@@ -97,7 +97,7 @@ foc.fun is a comprehensive framework for building, deploying, and managing decen
 ## Core Components
 
 ### 1. foc-engine
-The core runtime that powers your applications. [Learn more →](https://github.com/b-j-roberts/foc-engine)
+The core runtime that powers your applications. [Learn more →](https://github.com/foc-fun/foc-engine)
 
 ### 2. Modules
 Pluggable components for common functionality:
@@ -118,9 +118,9 @@ Production-ready templates to jumpstart your project. [Preview →](./app-templa
 
 ## Join the Community
 
-- **GitHub**: [github.com/b-j-roberts](https://github.com/b-j-roberts)
+- **GitHub**: [github.com/foc-fun](https://github.com/foc-fun)
+- **Twitter**: [@focfun](https://x.com/focfun)
 - **Discord**: Coming soon!
-- **Twitter**: Follow for updates
 
 ## Ready to Build?
 

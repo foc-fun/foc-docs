@@ -420,6 +420,21 @@ If experiencing storage problems:
 3. **Immutability**: Consider making certain registry entries immutable
 4. **Audit Trail**: Maintain audit logs of all registry changes
 
+## Related Code & Resources
+
+### Source Code
+- **Registry Module Implementation**: [foc-engine/modules/registry](https://github.com/foc-fun/foc-engine/tree/main/modules/registry)
+- **JavaScript SDK Registry**: [foc-engine.js/src/modules/registry](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules/registry)
+- **Registry API Endpoints**: [foc-engine/api/registry](https://github.com/foc-fun/foc-engine/tree/main/api/registry)
+
+### Examples
+- **Registry Usage Examples**: [foc-engine/examples/registry](https://github.com/foc-fun/foc-engine/tree/main/examples/registry)
+- **Contract Registration Scripts**: [foc-engine/scripts/registry](https://github.com/foc-fun/foc-engine/tree/main/scripts/registry)
+
+### Tests
+- **Registry Module Tests**: [foc-engine/tests/modules/registry](https://github.com/foc-fun/foc-engine/tree/main/tests/modules/registry)
+- **Integration Tests**: [foc-engine/tests/integration/registry](https://github.com/foc-fun/foc-engine/tree/main/tests/integration/registry)
+
 ## Next Steps
 
 - Explore [Accounts Module](./accounts) for account management

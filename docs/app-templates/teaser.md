@@ -252,15 +252,16 @@ A: We're building a template marketplace where developers can share and monetize
 Don't miss the launch of App Templates:
 
 - 📧 [Join the waitlist](#)
-- 🐦 Follow us on Twitter
+- 🐦 Follow us on [Twitter](https://x.com/focfun)
 - 💬 Join our Discord (coming soon)
-- ⭐ Star our [GitHub repos](https://github.com/b-j-roberts)
+- ⭐ Star our [GitHub repos](https://github.com/foc-fun)
 
 ## Contact
 
 Questions about App Templates?
 - Email: templates@foc.fun
-- GitHub: [foc-templates](https://github.com/b-j-roberts/foc-templates)
+- GitHub: [foc-templates](https://github.com/foc-fun/foc-templates)
+- Twitter: [@focfun](https://x.com/focfun)
 - Discord: Coming soon!
 
 ---

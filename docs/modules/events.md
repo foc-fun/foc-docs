@@ -745,6 +745,36 @@ class ResilientEventSubscriber {
 }
 ```
 
+## Related Code & Resources
+
+### Source Code
+- **Events Module Implementation**: [foc-engine/modules/events](https://github.com/foc-fun/foc-engine/tree/main/modules/events)
+- **JavaScript SDK Events**: [foc-engine.js/src/modules/events](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules/events)
+- **Event Processing Engine**: [foc-engine/core/events](https://github.com/foc-fun/foc-engine/tree/main/core/events)
+
+### Event Streaming
+- **WebSocket Server**: [foc-engine/websocket/events](https://github.com/foc-fun/foc-engine/tree/main/websocket/events)
+- **SSE Implementation**: [foc-engine/sse/events](https://github.com/foc-fun/foc-engine/tree/main/sse/events)
+- **Webhook Manager**: [foc-engine/webhooks/events](https://github.com/foc-fun/foc-engine/tree/main/webhooks/events)
+
+### Examples
+- **Event Streaming Examples**: [foc-engine/examples/events](https://github.com/foc-fun/foc-engine/tree/main/examples/events)
+- **Real-time Dashboard**: [foc-engine/examples/events-dashboard](https://github.com/foc-fun/foc-engine/tree/main/examples/events-dashboard)
+- **Event-driven Architecture**: [foc-engine/examples/event-driven](https://github.com/foc-fun/foc-engine/tree/main/examples/event-driven)
+
+### Indexing & Storage
+- **Event Indexer**: [foc-engine/indexer/events](https://github.com/foc-fun/foc-engine/tree/main/indexer/events)
+- **Database Schemas**: [foc-engine/schemas/events](https://github.com/foc-fun/foc-engine/tree/main/schemas/events)
+- **Storage Adapters**: [foc-engine/storage/events](https://github.com/foc-fun/foc-engine/tree/main/storage/events)
+
+### Client Libraries
+- **React Hooks**: [foc-engine.js/src/react/events](https://github.com/foc-fun/foc-engine.js/tree/main/src/react/events)
+- **Event Filters**: [foc-engine.js/src/filters](https://github.com/foc-fun/foc-engine.js/tree/main/src/filters)
+
+### Tests
+- **Events Module Tests**: [foc-engine/tests/modules/events](https://github.com/foc-fun/foc-engine/tree/main/tests/modules/events)
+- **Streaming Tests**: [foc-engine/tests/events](https://github.com/foc-fun/foc-engine/tree/main/tests/events)
+
 ## Next Steps
 
 - Review [Getting Started](../getting-started/intro) for basics

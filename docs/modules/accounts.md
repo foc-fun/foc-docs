@@ -516,6 +516,27 @@ const upgrade = await accounts.upgrade({
 });
 ```
 
+## Related Code & Resources
+
+### Source Code
+- **Accounts Module Implementation**: [foc-engine/modules/accounts](https://github.com/foc-fun/foc-engine/tree/main/modules/accounts)
+- **JavaScript SDK Accounts**: [foc-engine.js/src/modules/accounts](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules/accounts)
+- **Account Abstraction Core**: [foc-engine/core/accounts](https://github.com/foc-fun/foc-engine/tree/main/core/accounts)
+
+### Examples
+- **Account Management Examples**: [foc-engine/examples/accounts](https://github.com/foc-fun/foc-engine/tree/main/examples/accounts)
+- **Multi-sig Implementation**: [foc-engine/examples/multisig](https://github.com/foc-fun/foc-engine/tree/main/examples/multisig)
+- **Session Keys Demo**: [foc-engine/examples/session-keys](https://github.com/foc-fun/foc-engine/tree/main/examples/session-keys)
+
+### Smart Contracts
+- **Account Contracts**: [foc-engine/contracts/accounts](https://github.com/foc-fun/foc-engine/tree/main/contracts/accounts)
+- **OpenZeppelin Account**: [foc-engine/contracts/accounts/openzeppelin](https://github.com/foc-fun/foc-engine/tree/main/contracts/accounts/openzeppelin)
+- **Argent Account**: [foc-engine/contracts/accounts/argent](https://github.com/foc-fun/foc-engine/tree/main/contracts/accounts/argent)
+
+### Tests
+- **Accounts Module Tests**: [foc-engine/tests/modules/accounts](https://github.com/foc-fun/foc-engine/tree/main/tests/modules/accounts)
+- **Account Abstraction Tests**: [foc-engine/tests/accounts](https://github.com/foc-fun/foc-engine/tree/main/tests/accounts)
+
 ## Next Steps
 
 - Learn about [Paymaster Module](./paymaster) for gasless transactions

@@ -4,27 +4,69 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* foc.fun brand colors - Purple and Star Gold */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #7c3aed;
+  --ifm-color-primary-dark: #6d28d9;
+  --ifm-color-primary-darker: #5b21b6;
+  --ifm-color-primary-darkest: #4c1d95;
+  --ifm-color-primary-light: #8b5cf6;
+  --ifm-color-primary-lighter: #a78bfa;
+  --ifm-color-primary-lightest: #c4b5fd;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(124, 58, 237, 0.1);
+  
+  /* Star gold accent color */
+  --ifm-color-secondary: #fbbf24;
+  --ifm-color-secondary-dark: #f59e0b;
+  --ifm-color-secondary-darker: #d97706;
+  --ifm-color-secondary-darkest: #b45309;
+  --ifm-color-secondary-light: #fcd34d;
+  --ifm-color-secondary-lighter: #fde68a;
+  --ifm-color-secondary-lightest: #fef3c7;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode - slightly lighter purple for better readability */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #8b5cf6;
+  --ifm-color-primary-dark: #7c3aed;
+  --ifm-color-primary-darker: #6d28d9;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #a78bfa;
+  --ifm-color-primary-lighter: #c4b5fd;
+  --ifm-color-primary-lightest: #ddd6fe;
+  --docusaurus-highlighted-code-line-bg: rgba(139, 92, 246, 0.3);
+  
+  /* Star gold in dark mode */
+  --ifm-color-secondary: #fcd34d;
+  --ifm-color-secondary-dark: #fbbf24;
+  --ifm-color-secondary-darker: #f59e0b;
+  --ifm-color-secondary-darkest: #d97706;
+  --ifm-color-secondary-light: #fde68a;
+  --ifm-color-secondary-lighter: #fef3c7;
+  --ifm-color-secondary-lightest: #fffbeb;
+}
+
+/* Custom styling for star gold accents */
+.button--secondary {
+  --ifm-button-background-color: var(--ifm-color-secondary);
+  --ifm-button-border-color: var(--ifm-color-secondary);
+  --ifm-button-color: var(--ifm-color-gray-900);
+}
+
+.button--secondary:hover {
+  --ifm-button-background-color: var(--ifm-color-secondary-dark);
+  --ifm-button-border-color: var(--ifm-color-secondary-dark);
+}
+
+/* Magic sparkle effect for foc.fun branding */
+.navbar__title::after {
+  content: '✨';
+  margin-left: 0.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
 }

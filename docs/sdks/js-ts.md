@@ -695,8 +695,37 @@ console.log({
 });
 ```
 
+## Related Code & Resources
+
+### Source Code
+- **Main SDK Repository**: [foc-engine.js](https://github.com/foc-fun/foc-engine.js)
+- **Core SDK Implementation**: [foc-engine.js/src/core](https://github.com/foc-fun/foc-engine.js/tree/main/src/core)
+- **Module Implementations**: [foc-engine.js/src/modules](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules)
+
+### TypeScript Types
+- **Type Definitions**: [foc-engine.js/src/types](https://github.com/foc-fun/foc-engine.js/tree/main/src/types)
+- **Generated Contract Types**: [foc-engine.js/types](https://github.com/foc-fun/foc-engine.js/tree/main/types)
+
+### React Integration
+- **React Hooks**: [foc-engine.js/src/react](https://github.com/foc-fun/foc-engine.js/tree/main/src/react)
+- **Provider Components**: [foc-engine.js/src/react/providers](https://github.com/foc-fun/foc-engine.js/tree/main/src/react/providers)
+
+### Examples & Templates
+- **SDK Examples**: [foc-engine.js/examples](https://github.com/foc-fun/foc-engine.js/tree/main/examples)
+- **Integration Examples**: [foc-fun/examples](https://github.com/foc-fun/foc-fun/tree/main/examples)
+- **Sample Applications**: [foc-examples](https://github.com/foc-fun/foc-examples)
+
+### Testing & Development
+- **Test Suite**: [foc-engine.js/tests](https://github.com/foc-fun/foc-engine.js/tree/main/tests)
+- **Mock Utilities**: [foc-engine.js/src/testing](https://github.com/foc-fun/foc-engine.js/tree/main/src/testing)
+- **Development Tools**: [foc-engine.js/tools](https://github.com/foc-fun/foc-engine.js/tree/main/tools)
+
+### Build & Configuration
+- **Build Scripts**: [foc-engine.js/scripts](https://github.com/foc-fun/foc-engine.js/tree/main/scripts)
+- **Configuration Files**: [foc-engine.js/config](https://github.com/foc-fun/foc-engine.js/tree/main/config)
+
 ## Next Steps
 
 - Explore the [Getting Started guide](../getting-started/intro)
 - Learn about [Modules](../modules/registry)
-- Check out [example applications](https://github.com/b-j-roberts/foc-examples)
+- Check out [example applications](https://github.com/foc-fun/foc-examples)
