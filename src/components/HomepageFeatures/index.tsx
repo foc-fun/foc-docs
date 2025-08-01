@@ -5,14 +5,15 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Svg?: React.ComponentType<React.ComponentProps<'svg'>>;
+  ImageSrc?: string;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Easy to Deploy',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    ImageSrc: '/img/magician.png',
     description: (
       <>
         foc.fun was designed to make Starknet development magical. Deploy your 
@@ -22,7 +23,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Focus on Your App',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    ImageSrc: '/img/rainbow.png',
     description: (
       <>
         foc.fun handles the infrastructure complexity so you can focus on building 
@@ -33,7 +34,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Powered by Starknet',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    ImageSrc: '/img/starknet-logo.png',
     description: (
       <>
         Built specifically for Starknet's Cairo smart contracts and account abstraction.
@@ -43,11 +44,20 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, Svg, ImageSrc, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        {ImageSrc ? (
+          <img 
+            src={ImageSrc} 
+            alt={title}
+            className={styles.featureSvg}
+            role="img"
+          />
+        ) : Svg ? (
+          <Svg className={styles.featureSvg} role="img" />
+        ) : null}
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>

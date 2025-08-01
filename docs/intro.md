@@ -118,9 +118,11 @@ Production-ready templates to jumpstart your project. [Preview →](./app-templa
 
 ## Join the Community
 
-- **GitHub**: [github.com/foc-fun](https://github.com/foc-fun)
-- **Twitter**: [@focfun](https://x.com/focfun)
-- **Discord**: Coming soon!
+- **🐦 Twitter**: Follow [@focfun](https://x.com/focfun) for updates and announcements
+- **🐙 GitHub**: Contribute on [github.com/foc-fun](https://github.com/foc-fun)
+- **💬 Discord**: Community server coming soon!
+- **📺 YouTube**: Tutorials and demos (coming soon)
+- **📖 Blog**: Read our latest posts on the [foc.fun blog](/blog)
 
 ## Ready to Build?
 

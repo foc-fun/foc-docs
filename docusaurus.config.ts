@@ -128,16 +128,16 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Twitter',
+              href: 'https://x.com/focfun',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: '#',
             },
             {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'GitHub',
+              href: 'https://github.com/foc-fun',
             },
           ],
         },
@@ -149,12 +149,8 @@ const config: Config = {
               to: '/blog',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/foc-fun',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://x.com/focfun',
+              label: 'foc.fun',
+              href: 'https://foc.fun',
             },
           ],
         },
