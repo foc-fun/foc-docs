@@ -53,6 +53,7 @@ function Feature({title, Svg, ImageSrc, description}: FeatureItem) {
             src={ImageSrc} 
             alt={title}
             className={styles.featureSvg}
+            style={{ imageRendering: 'pixelated' }}
             role="img"
           />
         ) : Svg ? (

@@ -166,49 +166,26 @@ my-dex/
 
 ## Roadmap
 
-### Phase 1: Core Templates (Q2 2024)
+### Phase 1: Core Templates
 - Basic DeFi templates (DEX, Staking)
 - Simple NFT marketplace
 - Documentation and guides
 
-### Phase 2: Advanced Templates (Q3 2024)
+### Phase 2: Advanced Templates
 - Complex DeFi protocols
 - Gaming templates
 - Enterprise solutions
 
-### Phase 3: Template Marketplace (Q4 2024)
+### Phase 3: Template Marketplace
 - Community templates
 - Template customization tools
 - Revenue sharing for creators
 
-### Phase 4: AI Integration (2025)
+### Phase 4: AI Integration
 - AI-powered customization
 - Smart contract optimization
 - Automated testing
 - Performance tuning
-
-## Early Access
-
-### Join the Beta Program
-Be among the first to access App Templates:
-
-1. **Apply for Beta Access**
-   - Early access to all templates
-   - Direct support from the team
-   - Influence template development
-   - Special launch pricing
-
-2. **Contribute Templates**
-   - Share your own templates
-   - Earn revenue from usage
-   - Get recognized in the community
-   - Shape the ecosystem
-
-3. **Provide Feedback**
-   - Test templates in real projects
-   - Report bugs and issues
-   - Suggest improvements
-   - Request new templates
 
 ## Use Cases
 
@@ -229,23 +206,6 @@ Be among the first to access App Templates:
 - Accelerate client projects
 - Build on solid foundations
 - Contribute and earn
-
-## FAQ
-
-**Q: When will templates be available?**
-A: We're planning a beta release in Q2 2024 with the first set of DeFi and NFT templates.
-
-**Q: How much will templates cost?**
-A: We'll offer free community templates and premium templates with additional features and support.
-
-**Q: Can I modify the templates?**
-A: Yes! All templates are fully customizable and come with permissive licenses.
-
-**Q: Will you offer custom template development?**
-A: Yes, we'll offer custom template development for enterprise clients.
-
-**Q: How can I contribute my own templates?**
-A: We're building a template marketplace where developers can share and monetize their templates.
 
 ## Get Notified
 
