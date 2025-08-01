@@ -1,0 +1,8 @@
+{
+  "label": "Modules",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Core modules of foc.fun - Registry, Accounts, Paymaster, and Events."
+  }
+}

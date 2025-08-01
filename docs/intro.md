@@ -2,46 +2,130 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Welcome to foc.fun
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Welcome to the official documentation for **foc.fun** - The Starknet App Engine that makes building decentralized applications magical! 🪄
 
-## Getting Started
+## Quick Links
 
-Get started by **creating a new site**.
+<div className="row">
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>🚀 Getting Started</h3>
+      </div>
+      <div className="card__body">
+        <p>New to foc.fun? Start here to learn the basics and get your first app running.</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--primary button--block" href="/docs/getting-started/intro">Get Started</a>
+      </div>
+    </div>
+  </div>
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>📦 Modules</h3>
+      </div>
+      <div className="card__body">
+        <p>Explore the powerful modules that power your foc.fun applications.</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--primary button--block" href="/docs/modules/registry">Explore Modules</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+<div className="row margin-top--lg">
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>🔧 SDKs</h3>
+      </div>
+      <div className="card__body">
+        <p>Integrate foc.fun into your applications with our JavaScript/TypeScript SDK.</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--primary button--block" href="/docs/sdks/js-ts">View SDKs</a>
+      </div>
+    </div>
+  </div>
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>🎨 Coming Soon</h3>
+      </div>
+      <div className="card__body">
+        <p>Exciting features on the horizon: Visual Builder and App Templates!</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--secondary button--block" href="/docs/builder/teaser">Learn More</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-### What you'll need
+## What is foc.fun?
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+foc.fun is a comprehensive framework for building, deploying, and managing decentralized applications on Starknet. It provides:
 
-## Generate a new site
+- **🚀 Easy Deployment** - Deploy your Starknet apps with simple commands
+- **🔧 Modular Architecture** - Use only what you need with our modular system
+- **🛡️ Built-in Security** - Security best practices baked into the framework
+- **📦 Rich Module Ecosystem** - Registry, Accounts, Paymaster, and Events modules
+- **🔌 Multiple SDKs** - Currently supporting JavaScript/TypeScript
+- **🏗️ Developer Tools** - Comprehensive tooling for development and debugging
 
-Generate a new Docusaurus site using the **classic template**.
+## Why Choose foc.fun?
 
-The classic template will automatically be added to your project after you run the command:
+### For Developers
+- **Faster Development**: Pre-built modules and templates accelerate your development
+- **Best Practices**: Built-in patterns ensure your code is secure and efficient
+- **Great DX**: Intuitive APIs and comprehensive documentation
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+### For Teams
+- **Standardization**: Consistent architecture across all your projects
+- **Scalability**: Built to handle projects of any size
+- **Collaboration**: Tools designed for team development
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+### For Users
+- **Better UX**: Features like gasless transactions via Paymaster
+- **Reliability**: Battle-tested modules ensure stability
+- **Performance**: Optimized for the best user experience
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+## Core Components
 
-## Start your site
+### 1. foc-engine
+The core runtime that powers your applications. [Learn more →](https://github.com/b-j-roberts/foc-engine)
 
-Run the development server:
+### 2. Modules
+Pluggable components for common functionality:
+- **[Registry](./modules/registry)** - Contract deployment and management
+- **[Accounts](./modules/accounts)** - Account abstraction and management
+- **[Paymaster](./modules/paymaster)** - Gasless transactions
+- **[Events](./modules/events)** - Real-time event streaming
 
-```bash
-cd my-website
-npm run start
-```
+### 3. SDKs
+Client libraries for seamless integration:
+- **[JavaScript/TypeScript](./sdks/js-ts)** - Full-featured SDK for web development
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+### 4. Builder (Coming Soon)
+Visual development environment for creating Starknet apps. [Preview →](./builder/teaser)
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+### 5. App Templates (Coming Soon)
+Production-ready templates to jumpstart your project. [Preview →](./app-templates/teaser)
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+## Join the Community
+
+- **GitHub**: [github.com/b-j-roberts](https://github.com/b-j-roberts)
+- **Discord**: Coming soon!
+- **Twitter**: Follow for updates
+
+## Ready to Build?
+
+<div className="margin-top--lg">
+  <a className="button button--primary button--lg" href="/docs/getting-started/intro">
+    Start Building with foc.fun →
+  </a>
+</div>
