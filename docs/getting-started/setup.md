@@ -8,25 +8,15 @@ After installing foc-engine, this guide will help you set up your development en
 
 ## Initial Configuration
 
-# TODO: Change the organization from this to 1. Project structure 2. create config file 3. environment setup
+Setting up foc-engine involves three main steps:
 
-### 1. Environment Setup
+1. **Project Structure** - Organizing your application files
+2. **Create Config File** - Setting up foc.config.yml
+3. **Environment Setup** - Configuring environment variables
 
-Create a `.env` file in your project directory to configure foc-engine:
+### 1. Project Structure
 
-# TODO: Add a note that this is only required for sepolia/mainnet deployments
-
-```bash
-# .env
-
-# If using a custom account (starkli):
-STARKNET_KEYSTORE=$HOME/.starkli-sepolia/starkli-keystore.json
-STARKNET_ACCOUNT=$HOME/.starkli-sepolia/starkli-account.json
-```
-
-### 2. Project Structure
-
-A typical foc.fun project structure looks like:
+First, create a proper project structure for your foc.fun application:
 
 ```
 my-foc-app/
@@ -43,9 +33,9 @@ my-foc-app/
 └── ...
 ```
 
-### 3. Create Configuration File
+### 2. Create Configuration File
 
-Create a `foc.config.yml` file:
+Create a `foc.config.yml` file in your project root:
 
 ```yaml
 name: my-foc-app
@@ -76,9 +66,35 @@ modules:
   - events
 ```
 
-# TODO: Explain class_name field ( myst match the name of the contract within the cairo code )
-# TODO: Explain ACCOUNT & other built-in KEYS which link to data from foc-engine
-# TODO: Explain env vars and other aspects of yaml
+#### Configuration Field Explanations
+
+**class_name**: This field must match the exact name of the contract class defined in your Cairo code. For example, if your Cairo contract is defined as `#[starknet::contract] mod MyAppClass`, then `class_name` should be `MyAppClass`.
+
+**Built-in Variables**: foc-engine provides several built-in variables that can be used in your configuration:
+- `${ACCOUNT}` - The account address which deploys/manages the contracts
+
+**Environment Variables**: You can reference any environment variable using `$\{ENV_VAR_NAME\}` syntax. This allows you to keep sensitive data and/or pass in variables using your `.env` file while referencing it in your configuration.
+
+**Constructor Parameters**: The constructor array accepts various data types:
+- Addresses (0x prefix)
+- Numbers (decimal or hex)
+- Strings (for ByteArray conversion)
+- Environment variables (`$\{VAR_NAME\}`)
+- Built-in foc-engine variables
+
+### 3. Environment Setup
+
+Create a `.env` file in your project directory to configure foc-engine:
+
+```bash
+# .env
+
+# If using a custom account (starkli):
+STARKNET_KEYSTORE=$HOME/.starkli-sepolia/starkli-keystore.json
+STARKNET_ACCOUNT=$HOME/.starkli-sepolia/starkli-account.json
+```
+
+> **Note**: Starkli account configuration is only required for Sepolia testnet and mainnet deployments. For local devnet development, foc-engine handles account creation automatically.
 
 ## Start you apps Development Environment
 
@@ -123,6 +139,8 @@ modules:
     contracts_path: ./contracts/deployments
 ```
 
+# TODO: Add note with link to registry module docs to get more info
+
 ### Accounts Module
 
 Configure account management:
@@ -131,9 +149,21 @@ Configure account management:
 modules:
   accounts:
     enabled: true
-    default_account_class: "OpenZeppelin"
-    auto_deploy: true
+    metadata:
+      - max_fields: 3
+      - field_id: 0
+        limits:
+          - alphanumeric
+      - field_id: 1
+        limits:
+          - integer
+          - max_value: 100
+      - field_id: 2
+        limits:
+          - email
 ```
+
+# TODO: Add note with link to accounts module docs to get more info
 
 ### Paymaster Module
 
@@ -144,11 +174,14 @@ modules:
   paymaster:
     enabled: true
     policies:
-      - type: "whitelist"
-        addresses: ["0x123...", "0x456..."]
+      - type: "contracts"
+        addresses: ["my-app-contract", "0x456..."]
       - type: "quota"
         max_transactions: 100
+        reset: daily
 ```
+
+# TODO: Add note with link to paymaster modules docs to get more info
 
 ### Events Module
 
@@ -161,24 +194,28 @@ modules:
     websocket_port: 8081
     filters:
       - contract: "*"
+        tags: ["ERC20", "Unrug"]
         events: ["Transfer", "Approval"]
+      - contract: "my-app-contract"]
 ```
+
+# TODO: Add note with link to paymaster modules docs to get more info
 
 ## Development Workflow
 
-### 1. Start Local Devnet
+### 1. Start Foc-Engine
+
+# TODO: Add note to be at your project root
 
 ```bash
-# This is usually started automatically with foc-engine
-# But can be started separately if needed
-starknet-devnet --seed 0
+foc-engine run
 ```
 
-### 2. Deploy Contracts
+### 2. Start Your App Frontend
 
 ```bash
-# Deploy your contracts to the local devnet
-foc-engine deploy --contract ./contracts/MyContract.cairo
+cd frontend/
+npm run start
 ```
 
 ### 3. Connect Frontend
@@ -190,7 +227,6 @@ import { FocEngine } from 'foc-engine';
 
 const engine = new FocEngine({
   url: 'http://localhost:8080',
-  modules: ['accounts', 'events']
 });
 
 await engine.connect();
