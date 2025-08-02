@@ -865,4 +865,4 @@ const useAccountCache = () => {
 
 - [JavaScript/TypeScript SDK](./js-ts) - Core SDK documentation
 - [Accounts Module](../modules/accounts) - Account management
-- [Network Configuration](../getting-started/networks) - Network setup
+- [Network Configuration](../advanced/networks) - Network setup

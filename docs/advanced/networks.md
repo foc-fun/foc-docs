@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 ---
 
 # Network Configuration
@@ -367,4 +367,4 @@ const account = await accounts.deployWithPaymaster({
 
 - [Accounts Module](../modules/accounts) - Account management and deployment
 - [Paymaster Module](../modules/paymaster) - Gasless transaction configuration
-- [Setup Guide](./setup) - Initial FOC Engine configuration
+- [Setup Guide](../getting-started/setup) - Initial FOC Engine configuration

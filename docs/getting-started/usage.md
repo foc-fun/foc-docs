@@ -380,6 +380,7 @@ foc-engine monitor --export ./monitoring.json
 
 ## Next Steps
 
+- Learn about [Advanced topics](../advanced/networks) including network configuration, security, and transaction management
 - Explore the [Modules documentation](../modules/registry) for in-depth module features
 - Check out the [SDK reference](../sdks/js-ts) for complete API documentation
 - Stay tuned for [Builder](../builder/teaser) and [App Templates](../app-templates/teaser) coming soon!

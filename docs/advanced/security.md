@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 2
 ---
 
 # Key Storage & Security
@@ -467,4 +467,4 @@ const switchNetwork = async (account, newNetwork) => {
 
 - [Network Configuration](./networks) - Network-specific security considerations
 - [Accounts Module](../modules/accounts) - Account security features
-- [Setup Guide](./setup) - Secure initial configuration
+- [Setup Guide](../getting-started/setup) - Secure initial configuration
