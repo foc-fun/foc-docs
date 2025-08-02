@@ -6,6 +6,48 @@ sidebar_position: 3
 
 The Paymaster module enables gasless transactions in your foc.fun applications by sponsoring transaction fees on behalf of users. This dramatically improves user experience by removing the need for users to hold ETH for gas fees.
 
+## Paymaster-Only Mode (v0.2.0+)
+
+Starting with foc-engine v0.2.0, you can run foc.fun in paymaster-only mode using the AVNU Paymaster integration. This lightweight mode is perfect when you only need gasless transaction functionality without the full foc-engine stack.
+
+### Running Paymaster-Only Mode
+
+To start foc-engine with only the paymaster component:
+
+```bash
+# Run on devnet (default)
+foc-engine run --preset paymaster
+
+# Run on Sepolia testnet
+foc-engine run --network sepolia --preset paymaster
+
+# Run on mainnet
+foc-engine run --network mainnet --preset paymaster
+```
+
+### Key Features of Paymaster-Only Mode
+
+- **AVNU Paymaster Integration**: Leverages AVNU's production-ready paymaster infrastructure
+- **Minimal Resource Usage**: Only runs necessary paymaster components
+- **Network Flexibility**: Supports devnet, Sepolia testnet, and mainnet
+- **Quick Setup**: No complex configuration required for basic gasless transactions
+
+### When to Use Paymaster-Only Mode
+
+This mode is ideal when you:
+- Want to add gasless transactions to an existing dApp
+- Need a lightweight paymaster solution without full foc.fun features
+- Are testing paymaster functionality in isolation
+- Want to leverage AVNU's paymaster infrastructure directly
+
+### Configuration in Paymaster-Only Mode
+
+When using `--preset paymaster`, the system uses optimized defaults for AVNU integration. You can still provide a custom configuration file if needed:
+
+```bash
+foc-engine run --preset paymaster --config custom-paymaster.yml
+```
+
 ## Overview
 
 The Paymaster module provides:
