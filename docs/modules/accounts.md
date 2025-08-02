@@ -10,7 +10,10 @@ The Accounts module provides comprehensive account management for Starknet withi
 
 The Accounts module simplifies Starknet account management by providing:
 
-- Account creation and deployment
+- Account creation and deployment with username registration
+- Username store for unique identity management
+- Metadata store for flexible account information
+- Paymaster integration for gasless transactions
 - Multiple account implementation support (OpenZeppelin, Argent, Braavos)
 - Account abstraction features
 - Key management and signing
@@ -39,6 +42,26 @@ modules:
       max_calls: 100
 ```
 
+## Core Concepts
+
+### Username Store
+
+The username store provides a decentralized identity system:
+
+- **Unique Usernames**: Each account can claim a unique username (3-31 characters, alphanumeric and underscores)
+- **Contract-Specific**: Usernames can be scoped to specific contracts or global
+- **Validation**: Built-in validation ensures usernames meet format requirements
+- **Ownership**: Username ownership is tracked and prevents duplicate claims
+
+### Metadata Store
+
+The metadata store enables flexible account information:
+
+- **Dynamic Storage**: Store arbitrary metadata as hex-encoded strings
+- **Contract Scoping**: Metadata can be contract-specific or general
+- **Updates**: Account owners can update their metadata at any time
+- **Use Cases**: Profile information, settings, preferences, etc.
+
 ## API Reference
 
 ### Initialize the Module
@@ -52,22 +75,105 @@ const accounts = engine.getModule('accounts');
 
 ### Core Methods
 
-#### create(options)
+#### Username Management
 
-Create a new account:
+##### claimUsername(username, contractAddress?)
+
+Claim a unique username for an account:
 
 ```javascript
-// Create with default settings
-const account = await accounts.create();
+// Claim global username
+const result = await accounts.claimUsername('alice_stark');
+
+// Claim contract-specific username
+const contractUsername = await accounts.claimUsername(
+  'alice_game',
+  '0xcontract...'
+);
+
+// Check if username is available
+const isAvailable = await accounts.isUsernameUnique('bob_stark');
+
+// Validate username format
+const isValid = accounts.isUsernameValid('alice-123'); // false (hyphens not allowed)
+```
+
+##### getUsername(address, contractAddress?)
+
+Retrieve username for an account:
+
+```javascript
+// Get global username
+const username = await accounts.getUsername('0xaddress...');
+
+// Get contract-specific username
+const gameUsername = await accounts.getUsername(
+  '0xaddress...',
+  '0xgamecontract...'
+);
+```
+
+#### Metadata Management
+
+##### setMetadata(metadata, contractAddress?)
+
+Update account metadata:
+
+```javascript
+// Set global metadata
+await accounts.setMetadata({
+  name: 'Alice',
+  avatar: 'https://example.com/avatar.png',
+  bio: 'Building on Starknet',
+  social: {
+    twitter: '@alice',
+    github: 'alice-dev'
+  }
+});
+
+// Set contract-specific metadata
+await accounts.setMetadata(
+  { level: 42, score: 1000 },
+  '0xgamecontract...'
+);
+```
+
+##### getMetadata(address, contractAddress?)
+
+Retrieve account metadata:
+
+```javascript
+// Get account metadata
+const metadata = await accounts.getMetadata('0xaddress...');
+// Returns parsed metadata object
+```
+
+#### create(options)
+
+Create a new account with optional username and metadata:
+
+```javascript
+// Create with username and metadata
+const account = await accounts.create({
+  username: 'alice_stark',  // Optional: 3-31 chars, alphanumeric + underscores
+  metadata: {
+    name: 'Alice',
+    avatar: 'ipfs://...',
+    bio: 'Starknet developer'
+  },
+  deploy: true  // Deploy immediately
+});
 
 // Create with specific implementation
 const argentAccount = await accounts.create({
   implementation: 'argent',
-  deploy: true  // Deploy immediately
+  username: 'bob_argent',
+  deploy: true
 });
 
 // Create without deploying
 const pendingAccount = await accounts.create({
+  username: 'charlie',
   deploy: false
 });
 
@@ -75,6 +181,8 @@ const pendingAccount = await accounts.create({
 {
   address: '0x123...',
   publicKey: '0x456...',
+  username: 'alice_stark',
+  metadata: { /* metadata object */ },
   implementation: 'openzeppelin',
   deployed: true,
   deploymentTx: '0x789...'
@@ -92,7 +200,7 @@ await deploymentTx.wait();
 
 #### get(address)
 
-Get account details:
+Get account details including username and metadata:
 
 ```javascript
 const accountInfo = await accounts.get('0x123...');
@@ -100,6 +208,12 @@ const accountInfo = await accounts.get('0x123...');
 {
   address: '0x123...',
   publicKey: '0x456...',
+  username: 'alice_stark',        // If claimed
+  metadata: {                     // If set
+    name: 'Alice',
+    avatar: 'https://...',
+    bio: 'Building on Starknet'
+  },
   implementation: 'openzeppelin',
   deployed: true,
   nonce: 5,
@@ -141,6 +255,137 @@ await accounts.fund('0x123...', '1000000000000000000'); // 1 ETH
 await accounts.fund('0x123...', '1000', {
   token: 'STRK'
 });
+```
+
+## Paymaster Account Deployment
+
+The FOC Engine provides seamless paymaster integration for gasless account deployment and transactions:
+
+### Deployment Flow
+
+```javascript
+// Complete gasless deployment with username
+const newAccount = await accounts.deployWithPaymaster({
+  // Account configuration
+  username: 'alice_stark',      // Required: unique username
+  metadata: {                   // Optional: account metadata
+    name: 'Alice',
+    avatar: 'https://...',
+    bio: 'Starknet builder'
+  },
+  
+  // Network selection
+  network: 'sepolia',           // 'mainnet', 'sepolia', or 'devnet'
+  
+  // Optional: specific account implementation
+  implementation: 'openzeppelin', // default
+  
+  // Optional: custom class hash
+  classHash: '0x...'            // Uses default if not specified
+});
+
+// Returns deployed account with:
+{
+  address: '0x123...',
+  publicKey: '0x456...',
+  privateKey: '0x789...',      // Stored securely
+  username: 'alice_stark',
+  deployed: true,
+  network: 'sepolia',
+  deploymentTx: '0xabc...'
+}
+```
+
+### Authentication Methods
+
+```javascript
+// Generate new account keys
+const keys = await accounts.generatePrivateKey();
+
+// Calculate account address before deployment
+const address = await accounts.generateAccountAddress({
+  privateKey: keys.privateKey,
+  classHash: '0x...',  // Account class hash
+  network: 'sepolia'
+});
+
+// Connect existing account
+const connected = await accounts.connectAccount({
+  privateKey: '0xexisting...',
+  address: '0xaccount...',
+  network: 'sepolia'
+});
+```
+
+### Gasless Transactions
+
+```javascript
+// Execute transaction via paymaster
+const result = await accounts.invokeWithPaymaster({
+  // Transaction details
+  contractAddress: '0xtoken...',
+  entrypoint: 'transfer',
+  calldata: [
+    '0xrecipient...',
+    '1000000000000000000'  // 1 token
+  ],
+  
+  // Account to use
+  account: '0xmyaccount...',
+  
+  // Optional: specific paymaster
+  paymasterAddress: '0xcustom...'  // Uses FOC default if not set
+});
+
+// Monitor transaction
+await result.wait();
+```
+
+### Network-Specific Configuration
+
+```javascript
+// Mainnet deployment
+const mainnetAccount = await accounts.deployWithPaymaster({
+  username: 'alice_main',
+  network: 'mainnet',
+  // Uses mainnet paymaster and class hashes
+});
+
+// Sepolia testnet
+const sepoliaAccount = await accounts.deployWithPaymaster({
+  username: 'alice_test',
+  network: 'sepolia',
+  // Uses Sepolia paymaster and class hashes
+});
+
+// Local devnet
+const devnetAccount = await accounts.deployWithPaymaster({
+  username: 'alice_dev',
+  network: 'devnet',
+  // Uses local devnet configuration
+});
+```
+
+### Error Handling
+
+```javascript
+try {
+  const account = await accounts.deployWithPaymaster({
+    username: 'alice',
+    network: 'sepolia'
+  });
+} catch (error) {
+  if (error.message.includes('Username already taken')) {
+    console.error('Please choose a different username');
+  } else if (error.message.includes('Paymaster unavailable')) {
+    console.error('Paymaster service is temporarily unavailable');
+    // Fallback to regular deployment
+    const account = await accounts.create({ 
+      username: 'alice',
+      deploy: true 
+    });
+  }
+}
 ```
 
 ## Advanced Features
@@ -226,23 +471,39 @@ const customAccount = await accounts.create({
 
 #### Paymaster Integration
 
-Use accounts with paymaster:
+Deploy and use accounts with paymaster for gasless transactions:
 
 ```javascript
-// Configure account for paymaster
+// Deploy account using paymaster (gasless)
+const account = await accounts.deployWithPaymaster({
+  username: 'alice_stark',
+  metadata: { name: 'Alice' },
+  network: 'sepolia'  // or 'mainnet', 'devnet'
+});
+
+// Execute gasless transaction
+const tx = await accounts.invokeWithPaymaster({
+  contractAddress: '0xtoken...',
+  entrypoint: 'transfer',
+  calldata: ['0xrecipient...', '1000'],
+  account: account.address
+});
+
+// The paymaster deployment process:
+// 1. Generates account keys securely
+// 2. Calculates contract address
+// 3. Deploys via FOC Engine paymaster API
+// 4. Falls back to AVNU SDK if needed
+// 5. Registers username and metadata
+
+// Configure existing account for paymaster
 await accounts.configurePaymaster({
   account: '0x123...',
-  paymaster: '0xpaymaster...',
+  paymaster: 'foc-engine',  // or custom paymaster address
   policy: {
     type: 'subscription',
     validUntil: Date.now() + 2592000000  // 30 days
   }
-});
-
-// Transactions will now use paymaster
-const tx = await contract.invoke('transfer', args, {
-  account: '0x123...'
-  // Fee paid by paymaster automatically
 });
 ```
 
@@ -351,11 +612,23 @@ Subscribe to account events:
 // Account created
 accounts.on('accountCreated', (event) => {
   console.log('New account:', event.address);
+  console.log('Username:', event.username);
 });
 
 // Account deployed
 accounts.on('accountDeployed', (event) => {
   console.log('Deployed:', event.address, event.txHash);
+});
+
+// Username claimed
+accounts.on('usernameClaimed', (event) => {
+  console.log('Username claimed:', event.username);
+  console.log('By account:', event.address);
+});
+
+// Metadata updated
+accounts.on('metadataUpdated', (event) => {
+  console.log('Metadata updated for:', event.address);
 });
 
 // Transaction executed
@@ -372,16 +645,28 @@ accounts.on('keyRotated', (event) => {
 ## CLI Commands
 
 ```bash
-# Create new account
-foc-engine accounts create
+# Create new account with username
+foc-engine accounts create --username alice_stark
+
+# Create with paymaster (gasless)
+foc-engine accounts create --username bob --paymaster --network sepolia
 
 # Create with specific implementation
-foc-engine accounts create --implementation argent
+foc-engine accounts create --implementation argent --username charlie
+
+# Claim username for existing account
+foc-engine accounts claim-username alice_stark --address 0x123...
+
+# Check username availability
+foc-engine accounts check-username alice_stark
+
+# Set metadata
+foc-engine accounts set-metadata --address 0x123... --data '{"name":"Alice"}'
 
 # List accounts
 foc-engine accounts list
 
-# Get account info
+# Get account info (includes username/metadata)
 foc-engine accounts info 0x123...
 
 # Fund account (devnet)
@@ -394,17 +679,55 @@ foc-engine accounts export 0x123... --output account-backup.json
 foc-engine accounts import account-backup.json
 ```
 
+## Username Validation Rules
+
+Usernames must follow these validation rules:
+
+```javascript
+// Valid usernames
+'alice'          // ✓ Simple username
+'alice_stark'    // ✓ With underscore
+'alice123'       // ✓ With numbers
+'a_b_c'          // ✓ Multiple underscores
+'123alice'       // ✓ Starting with numbers
+
+// Invalid usernames
+'al'             // ✗ Too short (min 3 chars)
+'alice-stark'    // ✗ Hyphens not allowed
+'alice.stark'    // ✗ Dots not allowed
+'alice@stark'    // ✗ Special characters not allowed
+'a'.repeat(32)   // ✗ Too long (max 31 chars)
+'Alice'          // ✗ Uppercase not allowed
+'alice '         // ✗ Spaces not allowed
+
+// Validation function
+const isValid = accounts.isUsernameValid(username);
+// Returns: boolean
+
+// Check availability
+const isAvailable = await accounts.isUsernameUnique(username);
+// Returns: boolean
+```
+
 ## Security Best Practices
 
 ### 1. Key Storage
 
-Never store private keys in plain text:
+Private keys are securely stored with network-specific namespacing:
 
 ```javascript
+// Keys are automatically encrypted and stored securely
+const account = await accounts.deployWithPaymaster({
+  username: 'alice',
+  network: 'sepolia'
+});
+// Private key stored as: foc_sepolia_0x123...
+
+// Never expose private keys
 // Bad
 const privateKey = '0x1234...';
 
-// Good - Use encrypted storage
+// Good - Use secure storage
 await accounts.create({
   storage: 'encrypted_local'
 });
@@ -501,8 +824,17 @@ const accounts = engine.getModule('accounts', {
 const imported = await accounts.import({
   address: '0xexisting...',
   privateKey: '0xprivatekey...',
-  implementation: 'argent'  // Detect or specify
+  implementation: 'argent',  // Detect or specify
+  username: 'existing_user'  // Optional: claim username
 });
+
+// Connect with existing username
+const connected = await accounts.connectAccount({
+  privateKey: '0xprivatekey...',
+  address: '0xexisting...',
+  network: 'sepolia'
+});
+// Retrieves existing username and metadata automatically
 ```
 
 ### Upgrading Accounts
@@ -519,6 +851,7 @@ const upgrade = await accounts.upgrade({
 ## Related Code & Resources
 
 ### Source Code
+- **Accounts Cairo Contract**: [foc-engine/onchain/src/accounts.cairo](https://github.com/foc-fun/foc-engine/blob/main/onchain/src/accounts.cairo)
 - **Accounts Module Implementation**: [foc-engine/modules/accounts](https://github.com/foc-fun/foc-engine/tree/main/modules/accounts)
 - **JavaScript SDK Accounts**: [foc-engine.js/src/modules/accounts](https://github.com/foc-fun/foc-engine.js/tree/main/src/modules/accounts)
 - **Account Abstraction Core**: [foc-engine/core/accounts](https://github.com/foc-fun/foc-engine/tree/main/core/accounts)
