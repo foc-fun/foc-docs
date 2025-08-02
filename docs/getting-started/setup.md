@@ -139,7 +139,7 @@ modules:
     contracts_path: ./contracts/deployments
 ```
 
-# TODO: Add note with link to registry module docs to get more info
+> 📖 For detailed configuration options and advanced features, see the [Registry Module documentation](../modules/registry).
 
 ### Accounts Module
 
@@ -163,7 +163,7 @@ modules:
           - email
 ```
 
-# TODO: Add note with link to accounts module docs to get more info
+> 📖 For detailed configuration options and advanced features, see the [Accounts Module documentation](../modules/accounts).
 
 ### Paymaster Module
 
@@ -181,7 +181,7 @@ modules:
         reset: daily
 ```
 
-# TODO: Add note with link to paymaster modules docs to get more info
+> 📖 For detailed configuration options and advanced features, see the [Paymaster Module documentation](../modules/paymaster).
 
 ### Events Module
 
@@ -199,22 +199,29 @@ modules:
       - contract: "my-app-contract"]
 ```
 
-# TODO: Add note with link to paymaster modules docs to get more info
+> 📖 For detailed configuration options and advanced features, see the [Events Module documentation](../modules/events).
 
 ## Development Workflow
 
 ### 1. Start Foc-Engine
 
-# TODO: Add note to be at your project root
+Navigate to your project root directory and start foc-engine:
 
 ```bash
+# Make sure you're in your project root directory
+cd /path/to/my-foc-app
+
+# Start foc-engine with your configuration
 foc-engine run
 ```
 
 ### 2. Start Your App Frontend
 
 ```bash
-cd frontend/
+# Make sure you're in your frontend directory
+cd /path/to/my-foc-app/frontend
+
+# Start however you typically do
 npm run start
 ```
 
