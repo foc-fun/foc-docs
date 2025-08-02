@@ -50,7 +50,19 @@ const engine = new FocEngine({
   wsUrl: 'ws://localhost:8081',      // WebSocket URL for events
   timeout: 30000,                    // Request timeout (ms)
   retries: 3,                        // Retry failed requests
-  modules: ['registry', 'accounts']  // Modules to load
+  modules: ['registry', 'accounts'], // Modules to load
+  
+  // Paymaster configuration with AVNU fallback
+  paymaster: {
+    primary: {
+      type: 'foc-engine',
+      endpoint: 'https://api.foc.fun/paymaster/sepolia'
+    },
+    fallback: {
+      type: 'avnu',
+      apiKey: process.env.AVNU_API_KEY // AVNU API key for fallback
+    }
+  }
 });
 ```
 
@@ -82,7 +94,15 @@ const engine = new FocEngine({
       maxReconnectAttempts: 10
     },
     paymaster: {
-      enabled: true
+      enabled: true,
+      // AVNU fallback configuration
+      fallback: {
+        provider: 'avnu',
+        apiKey: process.env.AVNU_API_KEY,
+        endpoint: 'https://paymaster.avnu.fi',
+        timeout: 10000,
+        retries: 3
+      }
     }
   },
   
@@ -216,8 +236,20 @@ const tx = await token.invoke('transfer', {
   account: '0xmyaccount...',     // Specific account to use
   maxFee: '1000000000000000',    // Max fee in wei
   nonce: 5,                       // Custom nonce
-  paymaster: true,                // Use paymaster
+  paymaster: true,                // Use paymaster (with AVNU fallback)
   waitForAccept: true             // Wait for L2 acceptance
+});
+
+// Force specific paymaster provider
+const txWithAvnu = await token.invoke('transfer', {
+  to: '0x789...',
+  amount: '1000'
+}, {
+  account: '0xmyaccount...',
+  paymaster: {
+    provider: 'avnu',             // Force AVNU paymaster
+    apiKey: process.env.AVNU_API_KEY
+  }
 });
 ```
 
@@ -343,6 +375,96 @@ emitter.off('Transfer', handler);
 emitter.removeAllListeners();
 ```
 
+## Paymaster Integration
+
+### AVNU Fallback Configuration
+
+```javascript
+// Configure automatic AVNU fallback
+const engine = new FocEngine({
+  network: 'sepolia',
+  paymaster: {
+    // Primary: FOC Engine paymaster
+    primary: {
+      type: 'foc-engine',
+      endpoint: 'https://api.foc.fun/paymaster/sepolia'
+    },
+    
+    // Fallback: AVNU direct integration
+    fallback: {
+      type: 'avnu',
+      apiKey: process.env.AVNU_API_KEY,
+      endpoint: 'https://paymaster.avnu.fi',
+      
+      // Fallback triggers
+      triggers: {
+        timeout: 10000,
+        retries: 3,
+        errorCodes: ['503', '504', 'TIMEOUT']
+      }
+    },
+    
+    // Fallback behavior
+    fallbackOnError: true,
+    logFallbacks: true
+  }
+});
+```
+
+### Direct AVNU Integration
+
+```javascript
+// Use AVNU paymaster only (no FOC Engine fallback needed)
+const engine = new FocEngine({
+  network: 'sepolia',
+  paymaster: {
+    type: 'avnu-only',
+    apiKey: process.env.AVNU_API_KEY,
+    endpoint: 'https://paymaster.avnu.fi',
+    
+    // AVNU-specific options
+    options: {
+      maxFeePercentage: 10,  // Max 10% of transaction value as fee
+      validityPeriod: 3600,  // 1 hour validity
+      gaslessTokens: ['ETH', 'USDC', 'USDT']
+    }
+  }
+});
+
+// All transactions will use AVNU paymaster
+const paymaster = engine.getModule('paymaster');
+const sponsoredTx = await paymaster.sponsor({
+  account: '0xuser...',
+  to: '0xcontract...',
+  selector: 'transfer',
+  calldata: ['0xrecipient...', '1000']
+});
+```
+
+### Paymaster Event Handling
+
+```javascript
+// Monitor paymaster fallback events
+engine.paymaster.on('fallbackTriggered', (event) => {
+  console.log('Paymaster fallback:', {
+    reason: event.reason,
+    primaryProvider: event.primary,
+    fallbackProvider: event.fallback,
+    transactionHash: event.txHash
+  });
+});
+
+// Track paymaster provider health
+engine.paymaster.on('providerHealthChange', (event) => {
+  console.log('Provider health:', {
+    provider: event.provider,
+    status: event.status, // 'healthy', 'degraded', 'down'
+    latency: event.latency,
+    successRate: event.successRate
+  });
+});
+```
+
 ## Error Handling
 
 ### Error Types
@@ -353,7 +475,8 @@ import {
   ConnectionError,
   ContractError,
   TransactionError,
-  ModuleError
+  ModuleError,
+  PaymasterError
 } from 'foc-engine';
 
 try {
@@ -363,17 +486,21 @@ try {
     console.error('Failed to connect:', error.message);
   } else if (error instanceof ModuleError) {
     console.error('Module error:', error.module, error.message);
+  } else if (error instanceof PaymasterError) {
+    console.error('Paymaster error:', error.provider, error.message);
   }
 }
 ```
 
-### Transaction Errors
+### Transaction Errors with Paymaster Fallback
 
 ```javascript
 try {
   const tx = await token.invoke('transfer', {
     to: '0x789...',
     amount: '1000000'
+  }, {
+    paymaster: true // Enables automatic AVNU fallback
   });
   await tx.wait();
 } catch (error) {
@@ -388,6 +515,15 @@ try {
       case 'TIMEOUT':
         console.error('Transaction timed out');
         break;
+      case 'PAYMASTER_UNAVAILABLE':
+        console.error('All paymasters failed:', error.providers);
+        break;
+    }
+  } else if (error instanceof PaymasterError) {
+    if (error.fallbackUsed) {
+      console.log('Transaction succeeded using AVNU fallback');
+    } else {
+      console.error('Paymaster failed:', error.message);
     }
   }
 }
@@ -439,7 +575,7 @@ const decoded = utils.decodeEvent('Transfer', eventData);
 
 ## React Integration
 
-### Provider Component
+### Provider Component with AVNU Fallback
 
 ```jsx
 import { FocEngineProvider } from 'foc-engine/react';
@@ -449,7 +585,20 @@ function App() {
     <FocEngineProvider
       config={{
         url: 'http://localhost:8080',
-        modules: ['registry', 'accounts', 'events']
+        modules: ['registry', 'accounts', 'events', 'paymaster'],
+        
+        // AVNU fallback configuration
+        paymaster: {
+          primary: {
+            type: 'foc-engine',
+            endpoint: process.env.REACT_APP_FOC_PAYMASTER_URL
+          },
+          fallback: {
+            type: 'avnu',
+            apiKey: process.env.REACT_APP_AVNU_API_KEY
+          },
+          fallbackOnError: true
+        }
       }}
     >
       <YourApp />
@@ -458,29 +607,55 @@ function App() {
 }
 ```
 
-### Hooks
+### Hooks with Paymaster
 
 ```jsx
 import {
   useFocEngine,
   useContract,
   useAccount,
-  useEvents
+  useEvents,
+  usePaymaster
 } from 'foc-engine/react';
 
-function TokenBalance({ tokenAddress, accountAddress }) {
+function TokenTransfer({ tokenAddress }) {
   const engine = useFocEngine();
   const token = useContract(tokenAddress);
-  const [balance, setBalance] = useState('0');
+  const paymaster = usePaymaster();
+  const [isTransferring, setIsTransferring] = useState(false);
   
-  useEffect(() => {
-    if (token) {
-      token.call('balanceOf', { account: accountAddress })
-        .then(setBalance);
+  const transfer = async (to, amount) => {
+    setIsTransferring(true);
+    try {
+      // Automatically uses AVNU fallback if FOC paymaster fails
+      const tx = await token.invoke('transfer', { to, amount }, {
+        paymaster: true
+      });
+      await tx.wait();
+      console.log('Transfer successful');
+    } catch (error) {
+      console.error('Transfer failed:', error);
+    } finally {
+      setIsTransferring(false);
     }
-  }, [token, accountAddress]);
+  };
   
-  return <div>Balance: {balance}</div>;
+  return (
+    <div>
+      <button 
+        onClick={() => transfer('0x123...', '1000')}
+        disabled={isTransferring}
+      >
+        {isTransferring ? 'Transferring...' : 'Send Gasless Transfer'}
+      </button>
+      
+      {/* Show paymaster status */}
+      <div>Paymaster Status: {paymaster.status}</div>
+      {paymaster.fallbackActive && (
+        <div>Using AVNU fallback</div>
+      )}
+    </div>
+  );
 }
 ```
 

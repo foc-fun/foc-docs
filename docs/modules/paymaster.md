@@ -10,6 +10,35 @@ The Paymaster module enables gasless transactions in your foc.fun applications b
 
 Starting with foc-engine v0.2.0, you can run foc.fun in paymaster-only mode using the AVNU Paymaster integration. This lightweight mode is perfect when you only need gasless transaction functionality without the full foc-engine stack.
 
+### AVNU Fallback Integration
+
+The paymaster module includes automatic fallback to AVNU's paymaster service when the FOC Engine paymaster is unavailable. By providing your AVNU API key to the frontend app, you can interact with AVNU directly without running the foc-engine paymaster server.
+
+```javascript
+// Frontend configuration with AVNU fallback
+const engine = new FocEngine({
+  network: 'sepolia',
+  paymaster: {
+    primary: {
+      type: 'foc-engine',
+      endpoint: 'https://api.foc.fun/paymaster/sepolia'
+    },
+    fallback: {
+      type: 'avnu',
+      apiKey: process.env.AVNU_API_KEY // Your AVNU API key
+    },
+    fallbackOnError: true
+  }
+});
+
+// Transactions automatically fall back to AVNU if FOC paymaster fails
+const tx = await engine.accounts.invokeWithPaymaster({
+  contractAddress: '0xtoken...',
+  entrypoint: 'transfer',
+  calldata: ['0xrecipient...', '1000']
+});
+```
+
 ### Running Paymaster-Only Mode
 
 To start foc-engine with only the paymaster component:
@@ -39,6 +68,8 @@ This mode is ideal when you:
 - Need a lightweight paymaster solution without full foc.fun features
 - Are testing paymaster functionality in isolation
 - Want to leverage AVNU's paymaster infrastructure directly
+- Need reliable fallback when your paymaster server is down
+- Prefer direct AVNU integration without server dependencies
 
 ### Configuration in Paymaster-Only Mode
 
@@ -104,10 +135,10 @@ const paymaster = engine.getModule('paymaster');
 
 #### sponsor(transaction)
 
-Sponsor a transaction:
+Sponsor a transaction with automatic AVNU fallback:
 
 ```javascript
-// Sponsor a transaction
+// Sponsor a transaction (tries FOC Engine first, falls back to AVNU)
 const sponsoredTx = await paymaster.sponsor({
   account: '0xuser...',
   to: '0xcontract...',
@@ -117,6 +148,18 @@ const sponsoredTx = await paymaster.sponsor({
 
 // Execute the sponsored transaction
 const result = await sponsoredTx.execute();
+
+// Force AVNU paymaster usage
+const avnuSponsoredTx = await paymaster.sponsor({
+  account: '0xuser...',
+  to: '0xcontract...',
+  selector: 'transfer',
+  calldata: ['0xrecipient...', '1000'],
+  paymaster: {
+    provider: 'avnu',
+    apiKey: process.env.AVNU_API_KEY
+  }
+});
 ```
 
 #### createPolicy(policy)
@@ -314,6 +357,56 @@ await paymaster.createPolicy({
       { policy: 'token-holder' },
       { policy: 'nft-owner' }
     ]
+  }
+});
+```
+
+### AVNU Direct Integration
+
+For applications that prefer direct AVNU integration:
+
+```javascript
+// Configure paymaster to use AVNU only
+const engine = new FocEngine({
+  network: 'sepolia',
+  paymaster: {
+    type: 'avnu-only',
+    apiKey: process.env.AVNU_API_KEY,
+    endpoint: 'https://paymaster.avnu.fi'
+  }
+});
+
+// All transactions will use AVNU paymaster
+const tx = await paymaster.sponsor({
+  account: '0xuser...',
+  to: '0xcontract...',
+  selector: 'transfer',
+  calldata: ['0xrecipient...', '1000']
+});
+```
+
+### Fallback Configuration Options
+
+```javascript
+// Advanced fallback configuration
+const paymaster = engine.getModule('paymaster', {
+  fallback: {
+    enabled: true,
+    provider: 'avnu',
+    apiKey: process.env.AVNU_API_KEY,
+    
+    // Fallback triggers
+    triggers: {
+      timeout: 10000,        // 10 second timeout
+      retries: 3,            // Try FOC 3 times before fallback
+      errorCodes: ['503', '504', 'TIMEOUT']
+    },
+    
+    // AVNU-specific options
+    avnuOptions: {
+      maxFeePercentage: 10,  // Max 10% of tx value as fee
+      validityPeriod: 3600   // 1 hour validity
+    }
   }
 });
 ```
