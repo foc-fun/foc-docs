@@ -83,23 +83,6 @@ If you prefer to build from source or need the latest development version:
    docker compose -f docker-compose-devnet.yml build
    ```
 
-## Installing the JavaScript/TypeScript SDK
-
-To use foc.fun in your JavaScript or TypeScript projects:
-
-```bash
-# npm
-npm install foc-engine
-
-# yarn
-yarn add foc-engine
-
-# pnpm
-pnpm add foc-engine
-```
-
-> **Note**: The JavaScript SDK is currently in early development. Check the [SDK documentation](../sdks/js-ts) for the latest features.
-
 ## Verifying Your Installation
 
 After installation, verify everything is working:
@@ -112,7 +95,7 @@ foc-engine run
 docker compose -f docker-compose-devnet.yml up
 ```
 
-You should see the foc-engine starting up and connecting to a local Starknet devnet.
+You should see the foc-engine build the docker components. Then start up a local devnet, deploy and connect each of the foc-engine modules, and then continue to run in that terminal.
 
 ## Troubleshooting
 
@@ -135,6 +118,23 @@ If the build fails:
 1. Ensure all prerequisites are installed
 2. Check Docker daemon is running: `docker ps`
 3. Clear Docker cache: `docker system prune -a`
+
+## Installing the JavaScript/TypeScript SDK
+
+To use foc.fun in your JavaScript or TypeScript projects:
+
+```bash
+# npm
+npm install foc-engine
+
+# yarn
+yarn add foc-engine
+
+# pnpm
+pnpm add foc-engine
+```
+
+> **Note**: The JavaScript SDK is currently in early development. Check the [SDK documentation](../sdks/js-ts) for the latest features.
 
 ## Next Steps
 

@@ -4,11 +4,11 @@ sidebar_position: 1
 
 # Introduction
 
-Welcome to **foc.fun** - The Starknet App Engine that makes building decentralized applications magical! 🪄
+Welcome to **foc.fun** - The Onchain App Engine that makes building decentralized applications magical! 🪄
 
 ## What is foc.fun?
 
-foc.fun is a comprehensive application framework and development platform designed to simplify building, deploying, and managing decentralized applications on the Starknet blockchain. It provides developers with a complete toolkit including:
+foc.fun is a comprehensive application framework and development platform designed to simplify building, deploying, and managing decentralized applications on Starknet. It provides developers with a complete toolkit including:
 
 - **foc-engine**: The core runtime engine that powers your Starknet applications
 - **SDKs**: Language-specific libraries for seamless integration (JavaScript/TypeScript)
@@ -17,7 +17,7 @@ foc.fun is a comprehensive application framework and development platform design
 
 ## Why foc.fun?
 
-Building on Starknet can be complex, but foc.fun abstracts away the complexity while giving you full control over your applications. Whether you're building DeFi protocols, gaming applications, or NFT marketplaces, foc.fun provides the tools and infrastructure you need.
+Building onchain apps can be complex, but foc.fun abstracts away the complexity while giving you full control over your applications. Whether you're building DeFi protocols, gaming applications, or NFT marketplaces, foc.fun provides the tools and infrastructure you need.
 
 ### Key Features
 
@@ -33,7 +33,7 @@ Building on Starknet can be complex, but foc.fun abstracts away the complexity w
 foc.fun consists of several key components:
 
 1. **Core Engine** - The runtime that manages your application lifecycle
-2. **Modules** - Pluggable components for common blockchain functionality
+2. **Modules** - Plug-and-play components for onchain interaction and development
 3. **SDKs** - Client libraries for interacting with your applications
 4. **Builder** - Visual development tools (WIP)
 5. **Templates** - Ready-to-use application scaffolds (WIP)

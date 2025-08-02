@@ -8,9 +8,13 @@ After installing foc-engine, this guide will help you set up your development en
 
 ## Initial Configuration
 
+# TODO: Change the organization from this to 1. Project structure 2. create config file 3. environment setup
+
 ### 1. Environment Setup
 
 Create a `.env` file in your project directory to configure foc-engine:
+
+# TODO: Add a note that this is only required for sepolia/mainnet deployments
 
 ```bash
 # .env
@@ -29,7 +33,9 @@ my-foc-app/
 ├── .env                    # Environment configuration
 ├── foc.config.yml          # foc-engine configuration
 ├── contracts/              # Cairo smart contracts
-│   └── src/
+│   ├── src/
+│   ├── scripts/            # contract init/setup scripts
+│   └── Scarb.toml
 ├── frontend/              # Frontend application
 │   ├── src/
 │   └── package.json
@@ -74,7 +80,7 @@ modules:
 # TODO: Explain ACCOUNT & other built-in KEYS which link to data from foc-engine
 # TODO: Explain env vars and other aspects of yaml
 
-## Starting the Development Environment
+## Start you apps Development Environment
 
 ### Using ASDF Installation
 
