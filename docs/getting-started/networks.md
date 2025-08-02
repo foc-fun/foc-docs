@@ -21,7 +21,7 @@ const engine = new FocEngine({
 **Network Details:**
 - Chain ID: `SN_MAIN`
 - Account Class Hash: `0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f`
-- Paymaster Endpoint: `https://api.foc.fun/paymaster/mainnet`
+- Engine Endpoint: `https://api.foc.fun`
 
 ### Sepolia Testnet
 Testing network for development and staging:
@@ -36,7 +36,7 @@ const engine = new FocEngine({
 **Network Details:**
 - Chain ID: `SN_SEPOLIA`
 - Account Class Hash: `0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f`
-- Paymaster Endpoint: `https://api.foc.fun/paymaster/sepolia`
+- Engine Endpoint: `https://api.foc.fun`
 
 ### Local Devnet
 Local development environment:
@@ -49,42 +49,29 @@ const engine = new FocEngine({
 ```
 
 **Network Details:**
-- Chain ID: `SN_GOERLI` (legacy)
+- Chain ID: `SN_DEVNET`
 - Account Class Hash: `0x025ec026985a3bf9d0cc1fe17326b245dfdc3ff89b8fde106542a3ea56c5a918`
-- Paymaster Endpoint: `http://localhost:3000/paymaster` (if running locally)
+- Engine Endpoint: `http://localhost:8080` (if running locally)
 
 ## Account Class Hashes
 
 Different networks use different account implementations and class hashes:
 
-### OpenZeppelin Account
-Standard account implementation across networks:
+| Network | Class Hash | Implementation | Notes |
+|---------|------------|----------------|-------|
+| **Mainnet** | `0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f` | OpenZeppelin | Production-ready, SNIP-9 compatible |
+| **Sepolia** | `0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f` | OpenZeppelin | Same as mainnet for testing |
+| **Devnet** | `0x025ec026985a3bf9d0cc1fe17326b245dfdc3ff89b8fde106542a3ea56c5a918` | Argent-X | Local development account |
+
+FOC Engine automatically selects the correct class hash based on network:
 
 ```javascript
-// Network-specific class hashes
-const classHashes = {
-  mainnet: '0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f',
-  sepolia: '0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f',
-  devnet: '0x025ec026985a3bf9d0cc1fe17326b245dfdc3ff89b8fde106542a3ea56c5a918'
-};
-
-// FOC Engine automatically selects the correct class hash
+// Auto-selects appropriate class hash for network
 const account = await accounts.create({
   network: 'sepolia',
   implementation: 'openzeppelin'
   // class_hash automatically set based on network
 });
-```
-
-### Argent Account
-Enhanced security features:
-
-```javascript
-const argentClassHashes = {
-  mainnet: '0x1a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003',
-  sepolia: '0x1a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003',
-  devnet: '0x...' // Check latest devnet deployment
-};
 ```
 
 ### Custom Class Hashes
@@ -102,6 +89,8 @@ const account = await accounts.create({
   ]
 });
 ```
+
+> ⚠️ **Important**: Custom account implementations must support [SNIP-9 (Outside Execution)](https://community.starknet.io/t/snip-outside-execution/101058) for paymaster functionality to work properly. The paymaster requires the ability to execute transactions on behalf of users through the `execute_from_outside` entrypoint.
 
 ## Network Selection
 
