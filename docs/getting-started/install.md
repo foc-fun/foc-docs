@@ -65,7 +65,7 @@ sudo dnf install jq yq
 
 5. **Verify installation**:
    ```bash
-   foc-engine --version
+   foc-engine version
    ```
 
 ### Method 2: Clone and Build

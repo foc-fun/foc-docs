@@ -14,9 +14,10 @@ Create a `.env` file in your project directory to configure foc-engine:
 
 ```bash
 # .env
-FOC_ENGINE_PORT=8080
-FOC_ENGINE_DEVNET_URL=http://localhost:5050
-FOC_ENGINE_LOG_LEVEL=info
+
+# If using a custom account (starkli):
+STARKNET_KEYSTORE=$HOME/.starkli-sepolia/starkli-keystore.json
+STARKNET_ACCOUNT=$HOME/.starkli-sepolia/starkli-account.json
 ```
 
 ### 2. Project Structure
@@ -33,7 +34,7 @@ my-foc-app/
 │   ├── src/
 │   └── package.json
 ├── modules/               # Custom modules
-└── docker-compose.yml     # Docker configuration
+└── ...
 ```
 
 ### 3. Create Configuration File
@@ -42,21 +43,36 @@ Create a `foc.config.yml` file:
 
 ```yaml
 name: my-foc-app
-version: 1.0.0
-engine:
-  port: 8080
-  host: 0.0.0.0
+version: 0.1.0
+
+engine_url: http://localhost:8080
+
+starknet:
+  network: devnet
+  node_url: http://localhost:5050
+
+contracts:
+  - name: my-app-contract
+    version: 0.1.0
+    class_name: MyAppClass
+    constructor:
+      - ${ACCOUNT}
+      - 0x10
+      - Hello!
+      - ${ENV_VAR_1}
+    init_commands:
+      - setup-contracts.sh
 
 modules:
   - registry
   - accounts
   - paymaster
   - events
-
-starknet:
-  network: devnet
-  devnet_url: http://localhost:5050
 ```
+
+# TODO: Explain class_name field ( myst match the name of the contract within the cairo code )
+# TODO: Explain ACCOUNT & other built-in KEYS which link to data from foc-engine
+# TODO: Explain env vars and other aspects of yaml
 
 ## Starting the Development Environment
 
